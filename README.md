@@ -11,7 +11,7 @@ Object detection is a fundamental task in computer vision. The problem of object
 [Intersection over Union](https://www.pyimagesearch.com/2016/11/07/intersection-over-union-iou-for-object-detection)
 
 ## Data
-We have 10K street scene images with correponding labels as training data. The image dimension is  128×128×3 , and the labels include the semantic class and the bounding box corresponding to each object in the image. Note that a small portion of these ground-truth labels are not a little bit noisy and the quantity of the training set is not very large, so I cannot learn a super robust object detector.
+We have 10K street scene images with correponding labels as training data. The image dimension is  128×128×3 , and the labels include the semantic class and the bounding box corresponding to each object in the image. Note that a small portion of these ground-truth labels are not a little bit noisy and the quantity of the training set is not very large, so we cannot learn a super robust object detector.
 
 ## Preprocessing
 For each image, I convert the provided labels into the $8 \times 8 \times 8$ ground truth matrix, which has the same dimension as the output of YOLO detection network. The instructions of this conversion is as follows:
@@ -31,7 +31,8 @@ This model takes input with dimension of $128 \times 128 \times 3$ and outputs a
 ![image](https://user-images.githubusercontent.com/38180831/206103922-3b1aa7ea-cbbd-4d9d-8f28-9e3b358599c8.png)
 
 <div><img src="https://github.com/LukasZhornyak/CIS680_files/raw/main/HW2/fig2_3.png"/></div>
-<center>Figure 3: This figure demonstrates how to compute IoU.</center>
+
+
 
 | Layer | Hyperparameters |
 | :-: | :-: |
@@ -71,7 +72,7 @@ During inference, the network is going to predict lots of overlapping redundant 
 1. Get rid of predicted boxes with low objectness probability (Pr $< 0.6$).
 2. For each class, calculate the IoU for all the bounding boxes and cluster boxes with IoU > 0.5 as a group. For each group, find the one with highest Pr and suppress the other boxes. This is referred as non-max suppression.
 
-To evaluate the performance of your YOLO implementation, compute the mean Average Precision (mAP) of inference. Predicted bounding boxes are a match with ground truth bounding boxes if they share the same label and have an IoU with the ground truth bounding box of greater than 0.5. These matches can be used to calculate a precision/recall curve for each class. The Average Precision for a class is the area under this curve. The mean of these Average Precision values over all the classes in inference gives the mean Average Precision of your network.
+To evaluate the performance of the YOLO implementation, I compute the mean Average Precision (mAP) of inference. Predicted bounding boxes are a match with ground truth bounding boxes if they share the same label and have an IoU with the ground truth bounding box of greater than 0.5. These matches can be used to calculate a precision/recall curve for each class. The Average Precision for a class is the area under this curve. The mean of these Average Precision values over all the classes in inference gives the mean Average Precision of the network.
 
 <div><img src="https://github.com/LukasZhornyak/CIS680_files/raw/main/HW2/fig2_4.png"/></div>
 
