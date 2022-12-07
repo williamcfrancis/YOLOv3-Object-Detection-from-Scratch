@@ -52,7 +52,6 @@ case, there is only one anchor box at each grid cell and $B = 1$.
 * In our case there is only one anchor box at each grid, hence $B = 1$.
 * $S^2 =$ total number of grid cells.
 * $\mathbb{1}_{ij}^\text{obj} = 1$ if an object appears in grid cell $i$ and 0 otherwise.
-* $\mathbb{1}_{ij}^\text{no obj}$ is the compliment of $\mathbb{1}_{ij}^\text{obj}$.
 * $\hat{C}_i =$ Box confidence score $=$ Pr(box contains object) $\times$ IoU
 * IoU $=$ Intersection over union between the predicted and the ground truth.
 * $\hat{p}_i(c) =$ conditional class probability of class $c$ in cell $i$.
