@@ -1,4 +1,4 @@
-# YOLO from scratch
+# YOLOv3 from scratch
 
 ## Introduction
 Object detection is a fundamental task in computer vision. The problem of object recognition essentially consists of first localizing the object and then classifying it with a semantic label. In recent deep learning based methods, YOLO is an extremely fast real time multi object detection algorithm. The following image is a demo of what object detection does. The color indicates different semantic class.
