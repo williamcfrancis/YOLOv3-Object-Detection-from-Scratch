@@ -4,11 +4,11 @@
 Object detection is a fundamental task in computer vision. The problem of object recognition essentially consists of first localizing the object and then classifying it with a semantic label. In recent deep learning based methods, YOLO is an extremely fast real time multi object detection algorithm. The following image is a demo of what object detection does. The color indicates different semantic class.
 ![image](https://user-images.githubusercontent.com/38180831/206100696-b4db529c-63e1-4c31-bcfb-348c8b3f5722.png)
 #### Some Useful Online Materials
-| [Original YOLO paper](https://arxiv.org/pdf/1506.02640.pdf) |
+[Original YOLO paper](https://arxiv.org/pdf/1506.02640.pdf) |
 [Intuitive Explanation](https://towardsdatascience.com/yolo-you-only-look-once-real-time-object-detection-explained-492dc9230006) |
 [YOLO Video Tutorial](https://www.youtube.com/watch?v=9s_FpMpdYW8&list=PLkDaE6sCZn6Gl29AoE31iwdVwSG-KnDzF&index=30) |
 [Mean Average Precision](https://medium.com/@jonathan_hui/map-mean-average-precision-for-object-detection-45c121a31173) |
-[Intersection over Union](https://www.pyimagesearch.com/2016/11/07/intersection-over-union-iou-for-object-detection) |
+[Intersection over Union](https://www.pyimagesearch.com/2016/11/07/intersection-over-union-iou-for-object-detection)
 
 ## Data
 We have 10K street scene images with correponding labels as training data. The image dimension is  128×128×3 , and the labels include the semantic class and the bounding box corresponding to each object in the image. Note that a small portion of these ground-truth labels are not a little bit noisy and the quantity of the training set is not very large, so I cannot learn a super robust object detector.
@@ -62,4 +62,15 @@ Each grid cell predicts 1 bounding box, confidence score for those boxes and cla
 
 The confidence Score reflects the degree of confidence that the box contains an object and how accurate the box is. If no object exists in the cell then the confidence score should be 0 else the confidence score should be equal to the IOU between the predicted box and the ground truth box.
 
-During training, I set a learning rate of 10e-3 using Adam optimizer with default beta 1 and beta 2. I also visualize the loss over training iterations. Based on the loss visualization, I train the model for 20 epochs
+During training, I set a learning rate of 10e-3 using Adam optimizer with default beta 1 and beta 2. I also visualize the loss over training iterations. Based on the loss visualization, I train the model for 20 epochs.
+
+## Post-Processing
+During inference, the network is going to predict lots of overlapping redundant bounding boxes. To eliminate the redundant boxes, there are basically two steps:
+
+1. Get rid of predicted boxes with low objectness probability (Pr $< 0.6$).
+2. For each class, calculate the IoU for all the bounding boxes and cluster boxes with IoU > 0.5 as a group. For each group, find the one with highest Pr and suppress the other boxes. This is referred as non-max suppression.
+
+To evaluate the performance of your YOLO implementation, compute the mean Average Precision (mAP) of inference. Predicted bounding boxes are a match with ground truth bounding boxes if they share the same label and have an IoU with the ground truth bounding box of greater than 0.5. These matches can be used to calculate a precision/recall curve for each class. The Average Precision for a class is the area under this curve. The mean of these Average Precision values over all the classes in inference gives the mean Average Precision of your network.
+
+<div><img src="https://github.com/LukasZhornyak/CIS680_files/raw/main/HW2/fig2_4.png"/></div>
+<center>Figure 4: This figure demonstrates post-process of how to get rid of redundant bounding box.</center>
