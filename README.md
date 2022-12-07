@@ -75,3 +75,27 @@ To evaluate the performance of your YOLO implementation, compute the mean Averag
 
 <div><img src="https://github.com/LukasZhornyak/CIS680_files/raw/main/HW2/fig2_4.png"/></div>
 
+## Results
+#### Training Loss
+![image](https://user-images.githubusercontent.com/38180831/206104182-61baa546-5485-4390-96f2-ffe70e8785cf.png)
+
+#### Validation Loss
+![image](https://user-images.githubusercontent.com/38180831/206104297-82ed6c83-3029-4c34-bbc4-0a4348f3f9f9.png)
+
+#### Plot of the mean Average Precision over training
+![image](https://user-images.githubusercontent.com/38180831/206104391-031df0aa-d905-41f8-8ff8-a27c9c11591b.png)
+
+#### Raw output
+![image](https://user-images.githubusercontent.com/38180831/206104889-8f716565-c3f5-4d7d-be56-5fbc909d1575.png)
+
+
+#### Output after confidence thresholding and Non Maximum Suppression (NMS)
+![image](https://user-images.githubusercontent.com/38180831/206104921-1705d29e-05ea-4b5d-ae72-dd2cdfd39dce.png)
+
+#### Classwise mean Average Precision curves
+![image](https://user-images.githubusercontent.com/38180831/206105074-1b426ee6-6c98-4a50-aafa-1a14f3767997.png)
+![image](https://user-images.githubusercontent.com/38180831/206105128-5987a178-efa6-41f8-a9b4-75310db1cdec.png)
+![image](https://user-images.githubusercontent.com/38180831/206105196-9faf2101-b976-4cae-9341-fa999771ba00.png)
+
+
+
