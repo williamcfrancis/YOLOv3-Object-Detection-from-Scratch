@@ -43,6 +43,7 @@ This model takes input with dimension of $128 \times 128 \times 3$ and outputs a
 | transposed_conv7 | Kernel size $= 4 \times 4 \times 256$, stride $=2$, pad $=1$. Followed by BatchNorm and ReLU. |
 | transposed_conv8 | Kernel size $= 4 \times 4 \times 64$, stride $=2$, pad $=1$. Followed by BatchNorm and ReLU. |
 | conv9 | Kernel size $= 3 \times 3 \times 8$, stride $=1$, pad $=1$. |
+![image](https://user-images.githubusercontent.com/38180831/206103830-98572432-9e77-4c39-9da2-aee25a3b6f14.png)
 
 ## Training Details
 During training, the localization and classification errors are optimized jointly. The loss function is shown as below.  $i$ indicates number of grid cells and $j$ indicates number of anchor boxes at each grid cell. In our
@@ -73,4 +74,4 @@ During inference, the network is going to predict lots of overlapping redundant 
 To evaluate the performance of your YOLO implementation, compute the mean Average Precision (mAP) of inference. Predicted bounding boxes are a match with ground truth bounding boxes if they share the same label and have an IoU with the ground truth bounding box of greater than 0.5. These matches can be used to calculate a precision/recall curve for each class. The Average Precision for a class is the area under this curve. The mean of these Average Precision values over all the classes in inference gives the mean Average Precision of your network.
 
 <div><img src="https://github.com/LukasZhornyak/CIS680_files/raw/main/HW2/fig2_4.png"/></div>
-<center>Figure 4: This figure demonstrates post-process of how to get rid of redundant bounding box.</center>
+
