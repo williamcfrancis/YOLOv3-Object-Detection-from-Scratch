@@ -3,6 +3,7 @@
 ## Introduction
 Object detection is a fundamental task in computer vision. The problem of object recognition essentially consists of first localizing the object and then classifying it with a semantic label. In recent deep learning based methods, YOLO is an extremely fast real time multi object detection algorithm. The following image is a demo of what object detection does. The color indicates different semantic class.
 ![image](https://user-images.githubusercontent.com/38180831/206100696-b4db529c-63e1-4c31-bcfb-348c8b3f5722.png)
+
 #### Some Useful Online Materials
 [Original YOLO paper](https://arxiv.org/pdf/1506.02640.pdf) |
 [Intuitive Explanation](https://towardsdatascience.com/yolo-you-only-look-once-real-time-object-detection-explained-492dc9230006) |
@@ -11,7 +12,7 @@ Object detection is a fundamental task in computer vision. The problem of object
 [Intersection over Union](https://www.pyimagesearch.com/2016/11/07/intersection-over-union-iou-for-object-detection)
 
 ## Data
-Download the images from [here](https://drive.google.com/file/d/1cTxFrQ9o4dUKqY0WH2eUNtyRjtuSfWmd/view?usp=sharing). The labels are uploaded in this repository as labels.npz
+Download the images from [here](https://drive.google.com/file/d/1cTxFrQ9o4dUKqY0WH2eUNtyRjtuSfWmd/view?usp=sharing). The labels are uploaded in this repository as labels.npz.\
 We have 10K street scene images with correponding labels as training data. The image dimension is  128×128×3 , and the labels include the semantic class and the bounding box corresponding to each object in the image. Note that a small portion of these ground-truth labels are not a little bit noisy and the quantity of the training set is not very large, so we cannot learn a super robust object detector.
 
 ## Preprocessing
