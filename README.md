@@ -28,6 +28,7 @@ For each image, I convert the provided labels into the $8 \times 8 \times 8$ gro
 
 ## Model Architecture
 This model takes input with dimension of $128 \times 128 \times 3$ and outputs an activation with dimension of $8 \times 8 \times 8$.
+![image](https://user-images.githubusercontent.com/38180831/206103922-3b1aa7ea-cbbd-4d9d-8f28-9e3b358599c8.png)
 
 <div><img src="https://github.com/LukasZhornyak/CIS680_files/raw/main/HW2/fig2_3.png"/></div>
 <center>Figure 3: This figure demonstrates how to compute IoU.</center>
@@ -43,7 +44,6 @@ This model takes input with dimension of $128 \times 128 \times 3$ and outputs a
 | transposed_conv7 | Kernel size $= 4 \times 4 \times 256$, stride $=2$, pad $=1$. Followed by BatchNorm and ReLU. |
 | transposed_conv8 | Kernel size $= 4 \times 4 \times 64$, stride $=2$, pad $=1$. Followed by BatchNorm and ReLU. |
 | conv9 | Kernel size $= 3 \times 3 \times 8$, stride $=1$, pad $=1$. |
-![image](https://user-images.githubusercontent.com/38180831/206103830-98572432-9e77-4c39-9da2-aee25a3b6f14.png)
 
 ## Training Details
 During training, the localization and classification errors are optimized jointly. The loss function is shown as below.  $i$ indicates number of grid cells and $j$ indicates number of anchor boxes at each grid cell. In our
