@@ -22,12 +22,12 @@ For each image, I convert the provided labels into the $8 \times 8 \times 8$ gro
 * For each anchor, there are 8 channels, which encode Pr(Objectness), $x$, $y$, $w$, $h$, P(class=pedestrian),  P(class=traffic light), and P(class=car).
 * The Pr(Objectness) is the probability of whether this anchor is an object or background. When assigning the ground-truth for this value, "1" indicates object and "0" indicates background.
 * The channels 2-5, $x$, $y$ coordinates represent the center of the box relative to the bounds of the grid cell; $w$, $h$ is relative to the image width and height.
-* In channels 6-8, you need to convert the ground truth semantic label of each object into one-hot coding for each anchor boxes.
-* Note that if the anchor box does not have any object (Pr=0), you donâ€™t need to assign any values to channels 2-8, since I will not use them during training.
+* In channels 6-8, we need to convert the ground truth semantic label of each object into one-hot coding for each anchor boxes.
+* Note that if the anchor box does not have any object (Pr=0), we dont need to assign any values to channels 2-8, since I will not use them during training.
 * The dimensions are ordered (channels, x, y).
 
 ## Model Architecture
-You are required to implement the model architecture using the following parameters. This model takes input with dimension of $128 \times 128 \times 3$ and outputs an activation with dimension of $8 \times 8 \times 8$.
+This model takes input with dimension of $128 \times 128 \times 3$ and outputs an activation with dimension of $8 \times 8 \times 8$.
 
 <div><img src="https://github.com/LukasZhornyak/CIS680_files/raw/main/HW2/fig2_3.png"/></div>
 <center>Figure 3: This figure demonstrates how to compute IoU.</center>
@@ -62,4 +62,4 @@ Each grid cell predicts 1 bounding box, confidence score for those boxes and cla
 
 The confidence Score reflects the degree of confidence that the box contains an object and how accurate the box is. If no object exists in the cell then the confidence score should be 0 else the confidence score should be equal to the IOU between the predicted box and the ground truth box.
 
-During training, I set a learning rate of 10e-3 using Adam optimizer with default beta 1 and beta 2. You should also visualize the loss over training iterations. Based on the loss visualization, I train the model for 20 epochs
+During training, I set a learning rate of 10e-3 using Adam optimizer with default beta 1 and beta 2. I also visualize the loss over training iterations. Based on the loss visualization, I train the model for 20 epochs
