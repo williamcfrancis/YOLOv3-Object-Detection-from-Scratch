@@ -1,10 +1,12 @@
 # YOLOv3 from scratch
 
-## Introduction
-Object detection is a fundamental task in computer vision. The problem of object recognition essentially consists of first localizing the object and then classifying it with a semantic label. In recent deep learning based methods, YOLO is an extremely fast real time multi object detection algorithm. The following image is a demo of what object detection does. The color indicates different semantic class.
+## Overview
+YOLO (You Only Look Once) is a fast, real-time object detection algorithm that is widely used in the field of computer vision. It is capable of detecting multiple objects in an image and assigning them semantic labels based on their class. The following image is an example of the output of an object detection model:
 ![image](https://user-images.githubusercontent.com/38180831/206100696-b4db529c-63e1-4c31-bcfb-348c8b3f5722.png)
 
-#### Some Useful Online Materials
+Here, the different colors indicate different object classes.
+
+If you want to learn more about YOLO, here are some useful resources:
 [Original YOLO paper](https://arxiv.org/pdf/1506.02640.pdf) |
 [Intuitive Explanation](https://towardsdatascience.com/yolo-you-only-look-once-real-time-object-detection-explained-492dc9230006) |
 [YOLO Video Tutorial](https://www.youtube.com/watch?v=9s_FpMpdYW8&list=PLkDaE6sCZn6Gl29AoE31iwdVwSG-KnDzF&index=30) |
@@ -12,22 +14,22 @@ Object detection is a fundamental task in computer vision. The problem of object
 [Intersection over Union](https://www.pyimagesearch.com/2016/11/07/intersection-over-union-iou-for-object-detection)
 
 ## Data
-Download the images from [here](https://drive.google.com/file/d/1cTxFrQ9o4dUKqY0WH2eUNtyRjtuSfWmd/view?usp=sharing). The labels are uploaded in this repository as labels.npz.
+The data for this project consists of 10,000 street scene images and their corresponding labels. The images are 128x128x3 in dimension, and the labels include the semantic class and bounding box for each object in the image. Note that a small portion of these labels may be noisy, and the size of the training set is not large, so it may not be possible to learn a highly robust object detector.
 
-We have 10K street scene images with correponding labels as training data. The image dimension is  128×128×3 , and the labels include the semantic class and the bounding box corresponding to each object in the image. Note that a small portion of these ground-truth labels are not a little bit noisy and the quantity of the training set is not very large, so we cannot learn a super robust object detector.
+To use the data, download the images from [here](https://drive.google.com/file/d/1cTxFrQ9o4dUKqY0WH2eUNtyRjtuSfWmd/view?usp=sharing) and the labels from this repository as labels.npz.
 
 ## Preprocessing
-For each image, I convert the provided labels into the $8 \times 8 \times 8$ ground truth matrix, which has the same dimension as the output of YOLO detection network. The instructions of this conversion is as follows:
+Before training the model, the labels must be converted into a ground truth matrix with dimension $8 \times 8 \times 8$. This is done as follows:
 ![image](https://user-images.githubusercontent.com/38180831/206101640-2f40d6d0-1311-4fce-b78d-54d51711ecef.png)
 
-* We consider a $16 \times 16$ image patch as a grid cell and thus divide the full image into $8 \times 8$ patches in the 2D spatial dimension. In the output activation space, one grid cell represents one 16x16 image patch with corresponding aligned locations.
-* For simplified YOLO, I only use one anchor box, where I assume the anchor size is the same as the grid cell size. If the center of an object falls into a grid cell, that grid cell is responsible for detecting that object. This means that there is only one anchor for each object instance.
-* For each anchor, there are 8 channels, which encode Pr(Objectness), $x$, $y$, $w$, $h$, P(class=pedestrian),  P(class=traffic light), and P(class=car).
-* The Pr(Objectness) is the probability of whether this anchor is an object or background. When assigning the ground-truth for this value, "1" indicates object and "0" indicates background.
-* The channels 2-5, $x$, $y$ coordinates represent the center of the box relative to the bounds of the grid cell; $w$, $h$ is relative to the image width and height.
-* In channels 6-8, we need to convert the ground truth semantic label of each object into one-hot coding for each anchor boxes.
-* Note that if the anchor box does not have any object (Pr=0), we dont need to assign any values to channels 2-8, since I will not use them during training.
-* The dimensions are ordered (channels, x, y).
+* The image is divided into $8 \times 8$ grid cells, with each cell representing a 16x16 patch in the original image.
+* For simplicity, only one anchor box is used, with the same size as the grid cell. If the center of an object falls within a grid cell, that cell is responsible for detecting the object.
+* Each anchor has 8 channels: Pr(Objectness), $x$, $y$, $w$, $h$, P(class=pedestrian), P(class=traffic light), and P(class=car
+* Pr(Objectness) is the probability that this anchor is an object rather than background. "1" indicates an object, and "0" indicates background.
+* The $x$ and $y$ coordinates represent the center of the bounding box relative to the bounds of the grid cell, and $w$ and $h$ are the width and height of the bounding box relative to the width and height of the image.
+* The final three channels are for the semantic labels of the object, and are encoded using one-hot coding.
+* If the anchor does not have an object (Pr=0), the values for channels 2-8 are not assigned, as they will not be used during training.
+* The dimensions are ordered as (channels, x, y).
 
 ## Model Architecture
 This model takes input with dimension of $128 \times 128 \times 3$ and outputs an activation with dimension of $8 \times 8 \times 8$.
