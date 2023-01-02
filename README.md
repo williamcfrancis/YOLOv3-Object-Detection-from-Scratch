@@ -1,4 +1,4 @@
-# YOLOv3 from scratch
+# YOLOv3 Object Detection from scratch
 
 ## Overview
 YOLO (You Only Look Once) is a fast, real-time object detection algorithm that is widely used in the field of computer vision. It is capable of detecting multiple objects in an image and assigning them semantic labels based on their class. The following image is an example of the output of an object detection model:
