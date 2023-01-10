@@ -35,10 +35,6 @@ Before training the model, the labels must be converted into a ground truth matr
 This model takes input with dimension of $128 \times 128 \times 3$ and outputs an activation with dimension of $8 \times 8 \times 8$.
 ![image](https://user-images.githubusercontent.com/38180831/206103922-3b1aa7ea-cbbd-4d9d-8f28-9e3b358599c8.png)
 
-<div><img src="https://github.com/LukasZhornyak/CIS680_files/raw/main/HW2/fig2_3.png"/></div>
-
-
-
 | Layer | Hyperparameters |
 | :-: | :-: |
 | conv1 | Kernel size $= 4 \times 4 \times 32$, stride $=2$, pad $=1$. Followed by BatchNorm and ReLU. |
@@ -76,6 +72,8 @@ During inference, the network is going to predict lots of overlapping redundant 
 
 1. Get rid of predicted boxes with low objectness probability (Pr $< 0.6$).
 2. For each class, calculate the IoU for all the bounding boxes and cluster boxes with IoU > 0.5 as a group. For each group, find the one with highest Pr and suppress the other boxes. This is referred as non-max suppression.
+
+<div><img src="https://github.com/LukasZhornyak/CIS680_files/raw/main/HW2/fig2_3.png"/></div>
 
 To evaluate the performance of the YOLO implementation, I compute the mean Average Precision (mAP) of inference. Predicted bounding boxes are a match with ground truth bounding boxes if they share the same label and have an IoU with the ground truth bounding box of greater than 0.5. These matches can be used to calculate a precision/recall curve for each class. The Average Precision for a class is the area under this curve. The mean of these Average Precision values over all the classes in inference gives the mean Average Precision of the network.
 
